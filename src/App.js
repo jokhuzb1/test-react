@@ -1,23 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import Home from './components/Home';
+import Login from './components/Login';
+import News from './components/News';
+import Profile from './components/Profile';
+import Navbar from './components/Navbar';
+
 
 function App() {
+
+  //setting up fake storage
+  window.onload = (event) => {
+    localStorage.setItem("isLoggedIn", false)
+  };
+
+  const [isLogged, setIslogged] = useState(JSON.parse(localStorage.getItem('isLoggedIn')))
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/news" element={<News />} />
+
+        //conditionally rendering pages for logged users
+        <Route path="profile" element={isLogged ? < Profile /> : <Login />} />
+      </Routes>
     </div>
   );
 }
