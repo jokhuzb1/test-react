@@ -8,13 +8,13 @@ const Login = () => {
     const authUsername = useSelector((state) => state.user.user.username)
     const authPassword = useSelector((state) => state.user.user.password)
     
-    const [username, setUsername] = useState(' ')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
 
     const handleSubmit = (event)=>{
         event.preventDefault()  
-        if(username === authUsername && password == authPassword){
+        if(username === authUsername && parseInt(password) == authPassword){
              dispatch(toggleAuthTrue())
              setTimeout(() => {
                  navigate('/profile')
