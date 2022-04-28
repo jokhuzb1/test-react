@@ -3,21 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        user: { username: "Admin", password: 12345 },
+        user: { username: "Admin", password: 12345, isLogged: false },
     },
-
     reducers: {
-
-        toggleAuthTrue(state) {
-            localStorage.setItem("isLoggedIn", true)
+        toggleAuth: (state) => {
+            state.user.isLogged = !state.user.isLogged
         },
-        toggleAuthFalse(state) {
-            localStorage.setItem("isLoggedIn", false)
-        },
-
-
     }
 })
 
-export const { toggleAuthTrue, toggleAuthFalse } = userSlice.actions;
+export const { toggleAuthTrue, toggleAuthFalse, toggleAuth } = userSlice.actions;
 export default userSlice.reducer;

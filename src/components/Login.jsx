@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toggleAuthTrue } from "../store/userSlice";
+import { toggleAuth } from "../store/userSlice";
 const Login = () => {
+    const userStatus = useSelector((state) => state.user.user.isLogged)
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const authUsername = useSelector((state) => state.user.user.username)
@@ -13,15 +15,14 @@ const Login = () => {
     const [error, setError] = useState("")
 
     const handleSubmit = (event)=>{
+
         event.preventDefault()  
         if(username === authUsername && parseInt(password) == authPassword){
-             dispatch(toggleAuthTrue())
-             setTimeout(() => {
-                 navigate('/profile')
-                 window.location.reload(false);
-             }, 10);
+            dispatch(toggleAuth())
+            navigate('/profile')
         }else{
             setError("Eamil or password is incorrect, try again...")
+
         }
     }
     const clearError = ()=>{

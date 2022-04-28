@@ -1,4 +1,15 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const Profile = () => {
+    const userStatus = useSelector((state) => state.user.user.isLogged)
+    const navigate = useNavigate()
+    useState(()=>{
+        if(!userStatus){
+            navigate('login')
+        }
+    },[])
     return ( 
         <div className="profile">
               <h1>Profile</h1>
